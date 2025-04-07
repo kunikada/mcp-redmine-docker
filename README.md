@@ -71,11 +71,10 @@ docker run -d -p 8000:8000 \
 ## Docker Compose での実行例
 
 ```yaml
-version: '3'
-
 services:
   mcp-redmine:
-    image: .
+    build: .
+    container_name: mcp-redmine
     ports:
       - "8000:8000"
     environment:
