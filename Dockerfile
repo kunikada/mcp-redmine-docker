@@ -1,28 +1,26 @@
-# python:slimイメージをベースにする
-FROM python:slim
+FROM node:20-slim
 
-# 必要なパッケージのインストール
 RUN apt-get update && apt-get install -y \
+    wget \
     git \
-    nodejs \
-    npm \
-    && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
-
-# uvをインストール
-RUN pip install uv
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # supergatewayをnpmでインストール
-RUN npm install -g supergateway
+RUN npm install -g supergateway \
+    && npm cache clean --force
 
-# 作業ディレクトリを設定
-WORKDIR /app
+USER node:node
 
-# リポジトリをクローン
-RUN git clone https://github.com/runekaagaard/mcp-redmine.git . && \
-    git checkout main
+# uvをインストール
+RUN wget -qO- https://astral.sh/uv/install.sh | sh
+ENV PATH="/home/node/.local/bin:${PATH}"
 
-# ENTRYPOINTとしてsupergatewayを指定
+WORKDIR /opt/app
+
+# メインプログラム
+RUN git clone https://github.com/runekaagaard/mcp-redmine.git
+
 ENTRYPOINT ["supergateway"]
 
-# デフォルトコマンド
-CMD ["--stdio", "uv --directory /app run server.py"]
+CMD ["--stdio", "uv --directory /opt/app/mcp-redmine run server.py"]
