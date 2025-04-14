@@ -1,6 +1,6 @@
 # Redmine MCP Docker
 
-このリポジトリは、[MCP Redmine](https://github.com/runekaagaard/mcp-redmine)をクライアントからHTTP/SSEで通信するためのプロジェクトです。RedmineのAPIを活用したモダンコマンドパレット（MCP）をHTTPサーバーとして実行できます。
+このリポジトリは、[MCP Redmine](https://github.com/runekaagaard/mcp-redmine)をクライアントからHTTP/SSEで通信するためのプロジェクトです。RedmineのAPIを活用したMCPサーバーとして実行できます。
 
 ## 概要
 
